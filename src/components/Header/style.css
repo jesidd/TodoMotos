@@ -5,8 +5,9 @@
 
 /* Estilos de los <a> */
 .a-estilo {
-  @apply py-[15px] mx-[10px] block;
+  @apply py-[15px] mx-[13px] block;
 }
+
 
 @theme{
     --font-Inter: "Inter", sans-serif;
