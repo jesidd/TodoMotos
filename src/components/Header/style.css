@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Estilos de los <a> */
+.a-estilo {
+  @apply py-[15px] mx-[10px] block;
+}
+
+@theme{
+    --font-Inter: "Inter", sans-serif;
+}
