@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   return (  
     <footer className="w-full bg-black px-4 md:px-16 lg:px-30 py-10 font-Inter text-white text-base">
       <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        
+
         <div>
           <p className="text-lg font-bold mb-4 text-white">CONTACTO</p>
           <p className="text-gray-300 mb-2">Contáctanos</p>
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
 
           <div>
             <p className="text-lg font-bold mb-4">SÍGUENOS</p>
-            <div className="flex flex-wrap gap-2 text-2xl">
+            <div className="flex flex-wrap gap-2 text-xl sm:text-2xl">
               <a href="#" className="hover:text-gray-400"><ImFacebook2 /></a>
               <a href="#" className="hover:text-gray-400"><FaXTwitter /></a>
               <a href="#" className="hover:text-gray-400"><FaWhatsapp /></a>
