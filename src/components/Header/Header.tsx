@@ -7,7 +7,7 @@ import DesktopMenu from "./DesktopMenu";
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-black w-full over h-auto font-Inter text-white">
+    <header className="bg-black fixed w-full over h-auto font-Inter text-white">
 
       <div className=" h-1/3 flex justify-center content-center  pt-2">
         <a href="#" className="size-auto"><img src={logo} alt="Logo TodoMotos" className=" w-max h-36" /></a>
