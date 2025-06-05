@@ -14,7 +14,7 @@ const Header: React.FC = () => {
       </div>
 
 
-      <nav className="flex w-full h-[40px] justify-around items-center py-[34px] text-base whitespace-nowrap">
+      <nav className="flex w-full h-[40px] px-9 md:px-0 justify-between md:justify-around items-center py-[34px] text-base whitespace-nowrap">
 
         <div className="flex size-4 w-auto lg:w-[18%] items-center justify-center  ">
           <img src={lupa} alt="Icono lupa" className="cursor-pointer size-5" />
