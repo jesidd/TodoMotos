@@ -5,6 +5,9 @@ function App() {
   return (
     < >
       <Home/>
+      <div className='size-32 bg-white'>
+
+      </div>
     </>
   )
 }
