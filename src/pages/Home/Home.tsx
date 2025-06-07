@@ -6,6 +6,9 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
+      <div className='h-[200vh] bg-white mt-[200px]'>
+
+      </div>
       <Footer />
     </>
   );
