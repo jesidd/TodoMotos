@@ -1,1 +1,7 @@
 
+img {
+  image-rendering: auto;         /* por defecto */
+  image-rendering: crisp-edges;  /* más nítido en escalado */
+  image-rendering: pixelated;    /* ideal para pixel art */
+}
+
