@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         : 'flex justify-center pt-2'
         }`}>
         <a href="#" className={`${isScrolled ? 'h-18' : 'size-auto'}`}>
-          <img src={logo} alt="Logo TodoMotos" className={`transition-all duration-300 ${isScrolled ? 'h-18' : 'h-36'}`} />
+          <img src={logo} alt="Logo TodoMotos" className={`object-contain transition-all duration-300 ${isScrolled ? 'h-18' : 'h-36'}`} />
         </a>
 
 
