@@ -3,7 +3,7 @@ import { useState } from "react"
 import { motion } from "framer-motion";
 import type { MenuItem } from "./menuData"
 
-export default function MobMenu({ Menus }: { Menus: MenuItem[] }) {
+export default function MobMenu({ Menus, scrolled }: { Menus: MenuItem[], scrolled: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toogleDrawer = () => {
@@ -18,8 +18,9 @@ export default function MobMenu({ Menus }: { Menus: MenuItem[] }) {
         }
       </button>
 
-      <motion.div className="fixed left-0 right-0 top-54 w-full
-      overflow-y-auto h-full backdrop-blur p-6 pb-20 text-white bg-black"
+      <motion.div className={`fixed left-0 right-0 w-full
+      overflow-y-auto h-full backdrop-blur p-6 pb-20 text-white bg-black 
+      ${scrolled ? 'top-24' : 'top-51'}`}
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? "0%" : "-100%" }}>
        
