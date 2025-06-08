@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className={`bg-black fixed top-0 right-0 left-0 w-full over h-auto font-Inter text-white
+    <header className={`bg-black fixed top-0 right-0 left-0 z-[999] w-full over h-auto font-Inter text-white
       transition-all duration-300 whitespace-nowrap ${isScrolled ? 'h-20' : 'h-auto'}`}>
 
       <div className={`transition-all duration-300 items-center ${isScrolled ? 'flex py-3 justify-between px-8 h-auto'
