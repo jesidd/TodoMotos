@@ -45,7 +45,7 @@ const SLIDES: readonly Slide[] = [
     id: 3,
     title: "El arte de rodar",
     subtitle: "Vive la libertad en cada kilómetro recorrido",
-    imageUrl: "https://images.pexels.com/photos/1119717/pexels-photo-1119717.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
+    imageUrl: "https://i.ytimg.com/vi/iIvG4lYG2Cs/maxresdefault.jpg",
   },
   {
     id: 4,
@@ -97,7 +97,8 @@ const useCarousel = (slides: readonly Slide[], interval: number, onChange?: (i: 
   return { index, transitioning, setPaused, next, prev };
 };
 
-const Banner: React.FC<BannerProps> = memo(({
+//el memo aqui se usa para que react reutilice el render anterior y no vuelve a ejecutar el componente, si es el mismo.
+const Banner: React.FC<BannerProps> = memo(({ 
   slides = SLIDES,
   autoPlayInterval = 5000,
   showArrows = true,
