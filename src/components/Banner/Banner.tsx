@@ -1,66 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef, memo, lazy, Suspense, useMemo } from 'react';
-import banner1 from "../Banner/assests/banner1.jpg";
+import {SLIDES} from "./bannerData"
+import type {Slide,BannerProps} from "./bannerData"
 
-// interfaz para slide del carrusel
-interface Slide {
-  readonly id: number;
-  readonly title: string;
-  readonly subtitle: string;
-  readonly imageUrl: string;
-  readonly priority?: boolean;
-}
-
-
-// Props que acepta el componente Banner
-interface BannerProps {
-  readonly slides?: readonly Slide[];
-  readonly autoPlayInterval?: number;
-  readonly showArrows?: boolean;
-  readonly className?: string;
-  readonly onSlideChange?: (slideIndex: number) => void;
-  readonly preloadNext?: boolean;
-}
 
 // Carga perezosa de íconos para optimizar el rendimiento
 const ChevronLeftIcon = lazy(() => import('lucide-react').then(m => ({ default: m.ChevronLeft })));
 const ChevronRightIcon = lazy(() => import('lucide-react').then(m => ({ default: m.ChevronRight })));
 
-
-// Datos 
-const SLIDES: readonly Slide[] = [
-  {
-    id: 1,
-    title: "La comunidad de los que viven sobre dos ruedas",
-    subtitle: "Miles de motociclistas, una sola comunidad\nOpina, califica y descubre la moto ideal para vos.",
-    imageUrl: banner1,
-    priority: true
-  },
-  {
-    id: 2,
-    title: "Conecta con apasionados moteros",
-    subtitle: "Encuentra tu tribu, comparte experiencias únicas",
-    imageUrl: "https://images.pexels.com/photos/1119796/pexels-photo-1119796.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-  },
-  {
-    id: 3,
-    title: "El arte de rodar",
-    subtitle: "Vive la libertad en cada kilómetro recorrido",
-    imageUrl: "https://i.ytimg.com/vi/iIvG4lYG2Cs/maxresdefault.jpg",
-  },
-  {
-    id: 4,
-    title: "Aventuras sin límites",
-    subtitle: "Cada ruta es una nueva historia por contar",
-    imageUrl: "https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-
-  },
-  {
-    id: 5,
-    title: "Síguenos en redes sociales",
-    subtitle: "Mantente conectado con nuestra comunidad",
-    imageUrl: "https://images.pexels.com/photos/1119796/pexels-photo-1119796.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-  }
-];
 
 // Hook personalizado que maneja el estado del carrusel
 const useCarousel = (slides: readonly Slide[], interval: number, onChange?: (i: number) => void) => {
@@ -121,10 +67,9 @@ const Banner: React.FC<BannerProps> = memo(({
 
   return (
     <div
-      className={`relative w-full aspect-[16/9] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] xl:aspect-[16/3.5] min-h-[300px] sm:min-h-[400px] max-h-[90vh] overflow-hidden bg-black group antialiased will-change-transform ${className}`}
+    className={`relative w-full aspect-[16/9] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] xl:aspect-[16/3] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] max-h-[90vh] overflow-hidden bg-black group antialiased will-change-transform ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      role="region"
     >
       <div className="absolute inset-0">
         {visible.map(i => {
@@ -171,16 +116,14 @@ const Banner: React.FC<BannerProps> = memo(({
           <button
             onClick={prev}
             disabled={transitioning}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white transition-all duration-300 hover:scale-110"
-            aria-label="Anterior"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110"
           >
             <ChevronLeftIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
           <button
             onClick={next}
             disabled={transitioning}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white transition-all duration-300 hover:scale-110"
-            aria-label="Siguiente"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110"
           >
             <ChevronRightIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
