@@ -56,17 +56,18 @@ const Banner: React.FC<BannerProps> = memo(({
   const current = slides[index];
 
     //Permite desplazar las slides con el dedo
-  const touchStartX = useRef<number | null>(null);
-  const handleTouchStart = (e: React.TouchEvent) => {
-      touchStartX.current = e.touches[0].clientX;
+    const dragStartX = useRef<number | null>(null);
+    const handleDragStart = (clientX: number) => {
+      dragStartX.current = clientX;
     };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaX = (touchStartX.current ?? 0) - e.changedTouches[0].clientX;
-    const threshold = 50;
-    if (deltaX > threshold) next();
-    else if (deltaX < -threshold) prev();
-  };
+    const handleDragEnd = (clientX: number) => {
+      const deltaX = (dragStartX.current ?? 0) - clientX;
+      const threshold = 50;
+      if (deltaX > threshold) next();
+      else if (deltaX < -threshold) prev();
+      dragStartX.current = null;
+    };
 
   // Calcula qué slides deben ser visibles (actual, siguiente o anterior)
   const visible = useMemo(() => {
@@ -80,11 +81,13 @@ const Banner: React.FC<BannerProps> = memo(({
 
   return (
     <div
-    className={`relative w-full aspect-[16/9] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] xl:aspect-[16/3] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] max-h-[90vh] overflow-hidden bg-black group antialiased will-change-transform ${className}`}
+    className={`relative w-full aspect-[16/9] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] xl:aspect-[16/3] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] max-h-[90vh] overflow-hidden bg-black group antialiased will-change-transform ${className} cursor-grab active:cursor-grabbing`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+      onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
+      onMouseDown={(e) => handleDragStart(e.clientX)}
+      onMouseUp={(e) => handleDragEnd(e.clientX)}
     >
       <div className="absolute inset-0">
         {visible.map(i => {
@@ -112,13 +115,13 @@ const Banner: React.FC<BannerProps> = memo(({
 
 
       {/* Contenido de texto */}
-      <div className="relative z-20 h-full flex items-center">
+      <div className="relative z-20 h-full flex items-center ">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-2">
           <div className="max-w-2xl text-left px-12 sm:px-20 md:px-24 lg:px-0">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[2.9rem] font-bold text-white mb-6 leading-tight drop-shadow-md">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[2.9rem] font-bold text-white mb-6 leading-tight drop-shadow-md cursor-auto">
               {current.title}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-light whitespace-pre-line drop-shadow-sm">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-light whitespace-pre-line drop-shadow-sm cursor-auto">
               {current.subtitle}
             </p>
           </div>
