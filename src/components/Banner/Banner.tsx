@@ -55,6 +55,19 @@ const Banner: React.FC<BannerProps> = memo(({
   const { index, transitioning, setPaused, next, prev } = useCarousel(slides, autoPlayInterval, onSlideChange);
   const current = slides[index];
 
+    //Permite desplazar las slides con el dedo
+  const touchStartX = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+      touchStartX.current = e.touches[0].clientX;
+    };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const deltaX = (touchStartX.current ?? 0) - e.changedTouches[0].clientX;
+    const threshold = 50;
+    if (deltaX > threshold) next();
+    else if (deltaX < -threshold) prev();
+  };
+
   // Calcula qué slides deben ser visibles (actual, siguiente o anterior)
   const visible = useMemo(() => {
     const set = new Set([index]);
@@ -70,6 +83,8 @@ const Banner: React.FC<BannerProps> = memo(({
     className={`relative w-full aspect-[16/9] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] xl:aspect-[16/3] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] max-h-[90vh] overflow-hidden bg-black group antialiased will-change-transform ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="absolute inset-0">
         {visible.map(i => {
@@ -116,14 +131,14 @@ const Banner: React.FC<BannerProps> = memo(({
           <button
             onClick={prev}
             disabled={transitioning}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110 hidden sm:block"
           >
             <ChevronLeftIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
           <button
             onClick={next}
             disabled={transitioning}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 disabled:opacity-30 text-white cursor-pointer transition-all duration-300 hover:scale-110 hidden sm:block"
           >
             <ChevronRightIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
