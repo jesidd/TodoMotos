@@ -4,10 +4,15 @@ import lupa from "./assests/lupa.svg"
 import { Menus } from "./menuData";
 import MobMenu from "./MobMenu";
 import DesktopMenu from "./DesktopMenu";
+import Modal from '../Modal/Modal'; 
+
 
 const Header: React.FC = () => {
 
   const [isScrolled, setIscrolled] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +25,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
+    <div>
     <header className={`bg-black fixed top-0 right-0 left-0 z-[999] w-full over h-auto font-Inter text-white
       transition-all duration-300 whitespace-nowrap ${isScrolled ? 'h-20' : 'h-auto'}`}>
 
@@ -60,7 +66,7 @@ const Header: React.FC = () => {
       {!isScrolled && (
         <nav className="flex w-full h-[40px] px-9 md:px-0 justify-between md:justify-around items-center py-[28px] text-base ">
           <div className="flex size-4 w-auto lg:w-[18%] items-center justify-center">
-            <img src={lupa} alt="Icono lupa" className="cursor-pointer size-5" />
+            <img src={lupa} alt="Icono lupa" className="cursor-pointer size-5" onClick={() => setOpenModal(true)}/>
           </div>
           <ul className="lg:flex w-auto items-center gap-5 hidden">
             {Menus.map((menu) => (
@@ -83,6 +89,9 @@ const Header: React.FC = () => {
         </nav>
       )}
     </header>
+    
+    {openModal && <Modal onClose={() => setOpenModal(false)} />}
+    </div>
   );
 };
 
