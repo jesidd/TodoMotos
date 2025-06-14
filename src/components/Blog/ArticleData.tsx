@@ -17,3 +17,8 @@ export interface Moto {
   imagenUrl: string;
   descripcion: string;
 }
+
+export interface ClassMoto {
+  avgRating: number;
+  bike: Moto;
+}
