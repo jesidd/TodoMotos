@@ -1,5 +1,3 @@
-
-
 // interfaz para slide del carrusel
 export interface Slide {
     readonly id: number;
