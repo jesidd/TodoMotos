@@ -5,6 +5,9 @@ import type { LoginRequest } from '../Auth/Auth.Type';
 import authService from '../../services/Auth/AuthService';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import { Eye, EyeOff } from 'lucide-react';
+import googleIcon from '../../pages/Auth/assests/google.svg';
+import facebookIcon from '../../pages/Auth/assests/facebook.svg';
+
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -120,6 +123,41 @@ const LoginPage: React.FC = () => {
         >
           {isLoading ? 'Cargando...' : 'Iniciar sesión'}
         </button>
+
+        {/* Línea divisoria y redes sociales */}
+        <div className="my-6">
+          <div className="flex items-center justify-center relative">
+            <span className="absolute inset-x-0 h-px bg-white/10" />
+            <span className=" relative z-10 px-3 text-sm text-white/60">o continúa con</span>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-2 text-white/80 hover:bg-white/5 transition-colors"
+            >
+              <img src={googleIcon} alt="Google" className="w-5 h-5" />
+              Google
+            </button>
+
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-2 text-white/80 hover:bg-white/5 transition-colors"
+            >
+              <img src={facebookIcon} alt="Facebook" className="w-5 h-5" />
+              Facebook
+            </button>
+          </div>
+        </div>
+          {/* Enlace de registro */}
+          <p className="text-sm text-white/60 text-center mt-6">
+            ¿No tienes cuenta?{' '}
+            <a href="/registro" className="text-orange-500 hover:underline">
+              Regístrate aquí
+            </a>
+          </p>
+
+        
       </form>
     </AuthLayout>
   );
