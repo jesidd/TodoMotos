@@ -5,7 +5,7 @@ import { Menus } from "./menuData";
 import MobMenu from "./MobMenu";
 import DesktopMenu from "./DesktopMenu";
 import Modal from "../Modal/Modal";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router"
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIscrolled] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +116,6 @@ const Header: React.FC = () => {
           </nav>
         )}
       </header>
-
       {openModal && <Modal onClose={() => setOpenModal(false)} />}
     </div>
   );
