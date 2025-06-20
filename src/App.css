@@ -1,3 +1,4 @@
+@import "tailwindcss";  
 
 img {
   image-rendering: auto;         /* por defecto */
@@ -5,3 +6,6 @@ img {
   image-rendering: pixelated;    /* ideal para pixel art */
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
