@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef, memo, lazy, Suspense, useMemo } from 'react';
 import {SLIDES} from "./bannerData"
-import type {Slide,BannerProps} from "./bannerData"
+import type {Slide,BannerProps} from "./Banner.Types";
 
 
 // Carga perezosa de íconos para optimizar el rendimiento
