@@ -27,8 +27,13 @@ const LoginPage: React.FC = () => {
     try {
       await authService.login(data);
       navigate('/home');
-    } catch (err: any) {
-      setError(err.message || 'Login failed.');
+    } catch (err: unknown) {
+      if (err instanceof Error)
+         setError(err.message)
+      else 
+        setError('Login Failed');
+      
+      
     } finally {
       setIsLoading(false);
     }

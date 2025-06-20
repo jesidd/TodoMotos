@@ -26,7 +26,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ title, subtitle, children }) =>
       </h1>
 
       {subtitle && (
-        <p className="mb-5 text-[13px] md:text-[13.5px] lg:text-[13.7px] leading-[18px] text-center font-inter text-white/70 mb-4">
+        <p className=" text-[13px] md:text-[13.5px] lg:text-[13.7px] leading-[18px] text-center font-inter text-white/70 mb-4">
           {subtitle}
         </p>
       )}

@@ -1,11 +1,12 @@
-import Home from './pages/Home/Home'
+import { BrowserRouter } from "react-router";
+import RouterProv from './routes/routerProv'
 import './App.css'
 
 function App() {
   return (
-    < >
-      <Home/>
-    </>
+    <BrowserRouter>
+      <RouterProv/>
+    </BrowserRouter>
   )
 }
 
