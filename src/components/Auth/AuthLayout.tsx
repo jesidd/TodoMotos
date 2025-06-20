@@ -8,25 +8,29 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ title, subtitle, children }) => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#101828] via-black to-[#101828] px-4 sm:px-6 lg:px-8">
-    <div className="bg-white/10 backdrop-blur-md px-6 py-8 sm:px-8 sm:py-10 rounded-2xl shadow-lg w-full max-w-sm border border-white/20">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#101828] via-black to-[#101828] px-2 sm:px-4">
+    <div className="bg-white/10 backdrop-blur-md px-5 py-6 rounded-xl shadow-lg w-full max-w-xs sm:max-w-sm border border-white/20">
+      
       {/* Logo */}
-      <div className="flex justify-center mb-5 mt-0">
-        <a href="#">
-          <img
-            src={logo}
-            alt="Logo TodoMotos"
-            className="h-22 object-contain"
-          />
-        </a>
+      <div className="flex justify-center mb-2">
+        <img
+          src={logo}
+          alt="Logo TodoMotos"
+          className="h-[70px] sm:h-[70px] md:h-[80px] object-contain transition-all duration-200"
+        />
       </div>
 
-      <h1 className="text-3xl mb-2 text-white text-center font-inter">{title}</h1>
-        {subtitle && (
-        <p className="text-sm text-center text-[15px] leading-[24px] font-inter text-white/70 mb-6">
+      {/* Título */}
+      <h1 className="text-white text-center font-inter text-[25px] md:text-[26px] lg:text-[28px]">
+        {title}
+      </h1>
+
+      {subtitle && (
+        <p className="mb-5 text-[13px] md:text-[13.5px] lg:text-[13.7px] leading-[18px] text-center font-inter text-white/70 mb-4">
           {subtitle}
         </p>
       )}
+
 
       {children}
     </div>
