@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
             {...register('correo', { required: 'Correo es requerido' })}
             className={`mt-1 block w-full px-2 py-2 rounded border 
               bg-white/5 text-white text-[14px] placeholder-white/60 placeholder:text-[14px] 
-              focus:outline-none focus:border-orange-400
+              focus:outline-none focus:border-orange-500
               ${errors.correo ? 'border-[#F87171]' : 'border-white/20'}`}
           />
           {errors.correo && (
@@ -88,13 +88,13 @@ const LoginPage: React.FC = () => {
               {...register('clave', { required: 'Clave es requerida' })}
               className={`mt-1 block w-full px-2 py-2 pr-8 rounded border 
                 bg-white/5 text-white text-[14px] placeholder-white/60 placeholder:text-[14px]
-                focus:outline-none focus:border-orange-400
+                focus:outline-none focus:border-orange-500
                 ${errors.clave ? 'border-[#F87171]' : 'border-white/20'}`}
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-white/70"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors duration-300"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -110,10 +110,10 @@ const LoginPage: React.FC = () => {
         {/* Recordarme */}
         <div className="flex items-center text-[12px] md:text-[13.5px] lg:text-[13.7px] justify-between text-white/80">
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="form-checkbox h-[14px] w-[14px] accent-zinc-500" />
+            <input type="checkbox" className="form-checkbox h-[14px] w-[14px]  bg-transparent border-white/30 rounded focus:ring-orange-500 focus:ring-2" />
             Recordarme
           </label>
-          <a href="#" className="hover:underline">¿Olvidaste tu contraseña?</a>
+          <a href="#" className=" text-orange-400 hover:underline transition-all duration-300">¿Olvidaste tu contraseña?</a>
         </div>
 
         {/* Botón iniciar */}
@@ -138,7 +138,7 @@ const LoginPage: React.FC = () => {
           <div className="mt-3 grid grid-cols-2 gap-2">
             <button
               type="button"
-              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-2 text-white/80 text-[13px] hover:bg-white/5 transition-colors"
+              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-2 text-white/80 text-[13px] bg-white/10 hover:bg-white/20 transition-all duration-300"
             >
               <img src={googleIcon} alt="Google" className="w-4 h-4" />
               Google
@@ -146,7 +146,7 @@ const LoginPage: React.FC = () => {
 
             <button
               type="button"
-              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-1.5 text-white/80 text-[13px] hover:bg-white/5 transition-colors"
+              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-1.5 text-white/80 text-[13px] bg-white/10 hover:bg-white/20 transition-all duration-300"
             >
               <img src={facebookIcon} alt="Facebook" className="w-4 h-4" />
               Facebook
@@ -157,7 +157,7 @@ const LoginPage: React.FC = () => {
         {/* Registro */}
         <p className="text-white/60 text-[12px] md:text-[13.5px] lg:text-[13.7px] text-center mt-5">
           ¿No tienes cuenta?{' '}
-          <a href="/registro" className="text-orange-500 hover:underline">
+          <a href="/registro" className="text-orange-400 hover:underline font-semibold transition-all duration-300">
             Regístrate aquí
           </a>
         </p>
