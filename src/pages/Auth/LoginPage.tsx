@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import type { LoginRequest } from '../Auth/Auth.Type';
 import authService from '../../services/Auth/AuthService';
 import AuthLayout from '../../components/Auth/AuthLayout';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, X } from 'lucide-react';
 import googleIcon from '../../pages/Auth/assests/google.svg';
 import facebookIcon from '../../pages/Auth/assests/facebook.svg';
 
@@ -13,6 +13,8 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false); //para manejar el recordarme
+
 
   const {
     register,
@@ -23,30 +25,33 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = async (data: LoginRequest) => {
-    setIsLoading(true);
-    try {
-      await authService.login(data);
-      navigate('/home');
-    } catch (err: unknown) {
-      if (err instanceof Error)
-         setError(err.message)
-      else 
-        setError('Login Failed');
-      
-      
-    } finally {
-      setIsLoading(false);
+  setIsLoading(true);
+  try {
+    await authService.login(data, rememberMe);
+    navigate('/home');
+  } catch (err: any) {
+    const status = err?.response?.status;
+    const message = err?.response?.data?.message;
+
+    if (status === 401) {
+      setError('Correo o contraseña incorrectos.');
+    } else if (status === 500) {
+      setError('Error del servidor. Intenta más tarde.');
+    } else if (message) {
+      setError(message);
+    } else {
+      setError('Error desconocido al iniciar sesión.');
     }
-  };
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
 
   return (
     <AuthLayout title="Bienvenido de vuelta" subtitle="Ingresa a tu cuenta de TodoMotos">
-      {error && (
-        <div className="bg-red-500/10 text-[12px] md:text-[13.5px] lg:text-[13.7px] text-red-300 border border-red-400 p-2 rounded-lg mb-4 font-inter">
-          {error}
-        </div>
-      )}
-
+  
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 font-inter text-white text-[14px]"
@@ -110,7 +115,8 @@ const LoginPage: React.FC = () => {
         {/* Recordarme */}
         <div className="flex items-center text-[12px] md:text-[13.5px] lg:text-[13.7px] justify-between text-white/80">
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="form-checkbox h-[14px] w-[14px]  bg-transparent border-white/30 rounded focus:ring-orange-500 focus:ring-2" />
+            <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="form-checkbox h-[14px] w-[14px] bg-transparent border-white/30 rounded
+            focus:ring-orange-500 focus:ring-2"/>
             Recordarme
           </label>
           <a href="#" className=" text-orange-400 hover:underline transition-all duration-300">¿Olvidaste tu contraseña?</a>
@@ -127,6 +133,21 @@ const LoginPage: React.FC = () => {
         >
           {isLoading ? 'Cargando...' : 'Iniciar sesión'}
         </button>
+
+
+        {/*Mostrar errores*/}
+        {error && (
+          <div className="relative bg-red-500/10 text-[12px] md:text-[13.5px] lg:text-[13.7px] text-red-300 border border-red-400 p-2 rounded-lg mb-4 font-inter">
+            <button
+              onClick={() => setError(null)}
+              className="absolute top-2 right-2 flex items-center justify-center w-5 h-5 text-red-300 hover:text-red-500 transition"
+            >
+              <X size={16} strokeWidth={2} />
+            </button>
+            {error}
+          </div>
+        )}
+
 
         {/* Redes sociales */}
         <div className="my-4">
@@ -157,7 +178,7 @@ const LoginPage: React.FC = () => {
         {/* Registro */}
         <p className="text-white/60 text-[12px] md:text-[13.5px] lg:text-[13.7px] text-center mt-5">
           ¿No tienes cuenta?{' '}
-          <a href="/registro" className="text-orange-400 hover:underline font-semibold transition-all duration-300">
+          <a href="/registro" className="text-orange-400 hover:underline f transition-all duration-300">
             Regístrate aquí
           </a>
         </p>
