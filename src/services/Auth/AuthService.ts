@@ -1,17 +1,17 @@
 import axios from "axios";
 import type { LoginRequest, AuthResponse } from "../../pages/Auth/Auth.Type";
-import { getToken, setToken, removeToken } from "./TokenService";
+import { getToken,setToken, removeToken,setUseSession } from "./TokenService";
 
 // Crear instancia de Axios
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
+  baseURL: "https://fachamotos-1.onrender.com/api",
 });
 
-// Interceptor de solicitud y agregar token si no es ruta pública
+// Interceptor de solicitud para agregar el token si no es una ruta pública
 api.interceptors.request.use(
   (config) => {
     const token = getToken();
-    const publicPaths = ["/auth/signin"];
+    const publicPaths = ["/user/login"];
     const isPublic = publicPaths.some((path) => config.url?.includes(path));
 
     if (token && !isPublic) {
@@ -23,7 +23,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor de respuesta y si token es inválido, redirige a login
+// Interceptor de respuesta para manejar errores de autenticación
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -31,7 +31,9 @@ api.interceptors.response.use(
 
     if (status === 401) {
       removeToken();
-      window.location.href = "/login";
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
     }
 
     return Promise.reject(error);
@@ -39,8 +41,9 @@ api.interceptors.response.use(
 );
 
 // Función para iniciar sesión
-const login = async (data: LoginRequest) => {
-  const response = await api.post<AuthResponse>("/auth/signin", data);
+const login = async (data: LoginRequest, rememberMe: boolean) => {
+  setUseSession(!rememberMe); 
+  const response = await api.post<AuthResponse>("/user/login", data);
   setToken(response.data.token);
 };
 
