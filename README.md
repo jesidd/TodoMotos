@@ -25,6 +25,6 @@
 
 ## 📸 Capturas de pantalla
 
-```html
 <img src="https://drive.google.com/uc?export=view&id=1JdEqXtVW6LfBa2oyv0j73UI7lCCdD_Pd" width="800"/>
+
 ---
