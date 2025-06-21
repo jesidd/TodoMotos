@@ -7,7 +7,8 @@ import ArticleCard from "../../components/Blog/ArticleCard";
 import type { ResponseDataBlog } from "../../components/Blog/Blog.types";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { SyncLoader, PuffLoader } from "react-spinners";
+import LoaderCircle from "../../components/Loaders/CircleLoader";
+import PointsLoader from "../../components/Loaders/PointsLoader";
 
 const Home: React.FC = () => {
   const [ref, inView] = useInView();
@@ -68,34 +69,15 @@ const Home: React.FC = () => {
       <div className="h-auto w-full bg-white mt-[200px] overflow-auto scrollbar-hidden">
         <Banner />
 
-        <div className="flex justify-center flex-wrap w-[90%] md:w-[80%] relative pt-30 pb-15 gap-10 mx-auto">
+        <div className="flex justify-start flex-wrap w-[90%] lg:w-[86.7%] md:w-[80%] gap-12 relative pt-30 pb-15 mx-auto">
           {status === "pending" ? (
-            <PuffLoader
-              className="absolute top-2"
-              color={"#000000"}
-              loading={true}
-              cssOverride={{}}
-              size={80}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
+            <LoaderCircle />
           ) : status === "error" ? (
             "Error"
           ) : (
             content
           )}
-          {isFetchingNextPage && (
-            <div className="w-full flex justify-center">
-              <SyncLoader
-                color={"#000000"}
-                loading={true}
-                cssOverride={{}}
-                size={10}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            </div>
-          )}
+          {isFetchingNextPage && <PointsLoader />}
         </div>
       </div>
       <Footer />
