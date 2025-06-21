@@ -18,12 +18,12 @@
 
 - **Frontend:** React / HTML5 / CSS3 / TailwindCSS 
 - **Backend:** ASP.NET Core
-- **Base de datos:** MongoDB / PostgreSQL *(ajusta si aplica)*
+- **Base de datos:** MongoDB / PostgreSQL
 - **Control de versiones:** Git + GitHub
 
 ---
 
-## 📸 Capturas de pantalla
+## 📸 Capturas del sitio
 
 <img src="https://drive.google.com/uc?export=view&id=1JdEqXtVW6LfBa2oyv0j73UI7lCCdD_Pd" width="800"/>
 
