@@ -11,7 +11,7 @@ export default function ArticleCard({ articleData, innerRef }: { articleData: Re
     return (
         <article ref={innerRef} className="w-full md:w-70 lg:w-65">
             <div className="flex flex-col w-full min-h-[509px] rounded-[15px] overflow-hidden shadow-xl">
-                <a href="#"><img src={articleData.blog.imagenUrl} alt="foto articulo" className="h-40 object-cover w-full" /></a>
+                <a href="#"><img src={articleData.blog.imagenUrl} alt="foto articulo" className="h-48 md:h-40 object-cover w-full" /></a>
                 <div className="flex flex-col gap-5 px-8 pt-10 pb-5">
                     <h3 className="text-[18px] font-[700] text-[#4e4e4e] leading-[1.1]"><a href="#">{articleData.blog.titulo}</a></h3>
                     <div>
