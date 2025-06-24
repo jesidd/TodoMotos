@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import logo from "../Header/assests/LogoTodoMotos.svg";
-import lupa from "./assests/lupa.svg";
 import { Menus } from "./menuData";
 import MobMenu from "./MobMenu";
 import DesktopMenu from "./DesktopMenu";
 import Modal from "../Modal/Modal";
-import { useNavigate } from "react-router"
+import SearchIcon from "@mui/icons-material/Search";
+import { CircleUserRoundIcon } from "lucide-react";
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
 
   const [isScrolled, setIscrolled] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,84 +34,101 @@ const Header: React.FC = () => {
         <div
           className={`transition-all duration-300 items-center ${
             isScrolled
-              ? "flex py-3 justify-between px-8 h-auto"
-              : "flex justify-center pt-2"
+              ? "flex py-2 justify-between px-3 h-auto"
+              : "flex justify-center"
           }`}
         >
-          <a href="#" className={`${isScrolled ? "h-18" : "size-auto"}`}>
-            <img
-              src={logo}
-              alt="Logo TodoMotos"
-              className={`object-contain transition-all duration-300 ${
-                isScrolled ? "h-18" : "h-36"
-              }`}
-            />
-          </a>
-
           {isScrolled && (
-            <nav className="flex items-center justify-center place-self-end w-auto lg:w-[65%] lg:justify-around">
-              <ul className="lg:flex w-auto items-center gap-5 hidden">
+            <div className="flex items-center justify-between w-full lg:px-5 lg:pt-1">
+
+            <div className="w-autos gap-30 hidden lg:flex "> 
+              <a href="/" className="h-12">
+                <img
+                  src={logo}
+                  alt="Logo TodoMotos"
+                  className={`object-cover w-full transition-all duration-300 ${
+                    isScrolled && "h-full"
+                  }`}
+                />
+              </a>
+
+              <nav className="lg:flex w-auto items-center gap-5 hidden">
                 {Menus.map((menu) => (
                   <DesktopMenu menu={menu} key={menu.name} />
                 ))}
-              </ul>
+              </nav>
+            </div>
 
-              <div className="flex lg:w-[18%] w-[30%] justify-center items-center gap-3">
-                <ul className="flex md:gap-5   items-center w-auto">
-                  <li className="hidden md:block relative cursor-pointer after:content-[''] after:bg-[#3F444B] after:w-0 after:h-[3px] after:top-[81%] after:left-0 after:absolute after:rounded-xl after:duration-300 hover:after:w-full ">
-                    <span className="py-[15px] mx-[13px] block">
-                      Creá tu cuenta
-                    </span>
-                  </li>
-                  <li
-                    className="relative h-auto cursor-pointer after:content-[''] after:bg-[#3F444B] after:w-0 after:h-[3px] after:top-[81%] after:left-0 after:absolute after:rounded-xl after:duration-300 hover:after:w-full "
-                    onClick={() => navigate("/login")}
-                  >
-                    <span className="py-[15px] mx-[13px] block">Ingresá</span>
-                  </li>
-                </ul>
-                <div className="lg:hidden flex">
+              <div className="flex lg:hidden w-auto justify-center items-center gap-3">
+                <nav className=" flex">
                   <MobMenu Menus={Menus} scrolled={isScrolled} />
-                </div>
+                </nav>
               </div>
-            </nav>
+
+              <a href="/" className="h-12 lg:hidden">
+                <img
+                  src={logo}
+                  alt="Logo TodoMotos"
+                  className={`object-cover w-full transition-all duration-300 ${
+                    isScrolled && "h-full"
+                  }`}
+                />
+              </a>
+
+              <div className="flex gap-3 items-center">
+                <div
+                  className="flex size-auto w-auto lg:w-[18%] items-center cursor-pointer justify-center"
+                  onClick={() => setOpenModal(true)}
+                >
+                  <SearchIcon />
+                </div>
+
+                <CircleUserRoundIcon />
+              </div>
+            </div>
           )}
         </div>
 
         {!isScrolled && (
-          <nav className="flex w-full h-[40px] px-9 md:px-0 justify-between md:justify-around items-center py-[28px] text-base ">
-            <div className="flex size-4 w-auto lg:w-[18%] items-center justify-center">
+          <div className="flex relative flex-wrap w-full h-auto px-5 justify-between items-center py-4.5 lg:py-3 text-base">
+            <a href="/" className="block pb-3 w-[80%] mx-[10%]">
               <img
-                src={lupa}
-                alt="Icono lupa"
-                className="cursor-pointer size-5"
-                onClick={() => setOpenModal(true)}
+                src={logo}
+                alt="Logo TodoMotos"
+                className="object-cover w-auto lg:h-30 transition-all mx-auto duration-300"
               />
+            </a>
+
+            <div
+                className="lg:flex hidden size-auto w-auto items-center cursor-pointer justify-center"
+                onClick={() => setOpenModal(true)}
+              >
+                <SearchIcon />
             </div>
-            <ul className="lg:flex w-auto items-center gap-5 hidden">
+
+            <nav className="lg:flex w-auto items-center gap-5 hidden">
               {Menus.map((menu) => (
                 <DesktopMenu menu={menu} key={menu.name} />
               ))}
-            </ul>
-            <div className="flex lg:w-[18%] w-[30%] justify-center gap-3">
-              <ul className="flex md:gap-5 items-center w-auto">
-                <li className="hidden md:block relative cursor-pointer after:content-[''] after:bg-[#3F444B] after:w-0 after:h-[3px] after:top-[81%] after:left-0 after:absolute after:rounded-xl after:duration-300 hover:after:w-full">
-                  <span className="py-[15px] mx-[13px] block">
-                    Creá tu cuenta
-                  </span>
-                </li>
-                <li
-                  className="relative cursor-pointer after:content-[''] after:bg-[#3F444B] after:w-0 after:h-[3px] after:top-[81%] after:left-0 after:absolute after:rounded-xl after:duration-300 hover:after:w-full"
-                  onClick={() => navigate("/login")}
-                >
-                  <span className="py-[15px] mx-[13px] block">Ingresá</span>
-                </li>
-              </ul>
-              <div className="lg:hidden flex">
+            </nav>
+
+            <div className="flex lg:hidden lg:w-[18%] w-auto justify-center items-center gap-3">
+              <nav className=" flex">
                 <MobMenu Menus={Menus} scrolled={isScrolled} />
-              </div>
+              </nav>
             </div>
-          </nav>
+
+            <div className="flex gap-2.5 items-center">
+              <div
+                className="flex lg:hidden size-auto w-auto lg:w-[18%] items-center cursor-pointer justify-center"
+                onClick={() => setOpenModal(true)}
+              >
+                <SearchIcon />
+              </div>
+
+              <CircleUserRoundIcon className="text-zinc-100 size-6 cursor-pointer" />
+            </div>
+          </div>
         )}
       </header>
       {openModal && <Modal onClose={() => setOpenModal(false)} />}

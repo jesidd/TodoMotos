@@ -20,7 +20,7 @@ export default function MobMenu({ Menus, scrolled }: { Menus: MenuItem[], scroll
 
       <motion.div className={`fixed left-0 right-0 w-full
       overflow-y-auto h-full backdrop-blur p-6 pb-20 text-white bg-black 
-      ${scrolled ? 'top-24' : 'top-51'}`}
+      ${scrolled ? 'top-16' : 'top-41'}`}
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? "0%" : "-100%" }}>
        

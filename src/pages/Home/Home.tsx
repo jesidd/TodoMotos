@@ -66,7 +66,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="h-auto w-full bg-white mt-[200px] overflow-auto scrollbar-hidden">
+      <div className="relative h-auto w-full bg-white top-[164px] overflow-auto scrollbar-hidden">
         <Banner />
 
         <div className="flex justify-start flex-wrap w-[90%] lg:w-[86.7%] md:w-[80%] gap-12 relative pt-30 pb-15 mx-auto">
