@@ -22,7 +22,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ title, subtitle, children }) =>
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#101828] via-black to-[#101828] px-2 sm:px-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#101828] via-black to-[#101828] px-2 sm:px-4 py-3 ">
 
       {/* Flecha para pantallas medianas y grandes*/}
       <div className="hidden sm:flex absolute top-24 left-6 md:top-28 lg:top-8 z-50">

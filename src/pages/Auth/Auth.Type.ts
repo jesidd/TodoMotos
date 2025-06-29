@@ -9,3 +9,13 @@ export interface LoginRequest {
   correo: string;
   clave: string;
 }
+
+export interface RegisterRequest{
+  nombre: string;
+  apellido: string;
+  correo: string;
+  contrasena: string;
+  confirmarContrasena: string;
+  aceptaTerminos: boolean;
+  recibirNoticias: boolean;
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { LoginRequest, AuthResponse } from "../../pages/Auth/Auth.Type";
-import { getToken,setToken, removeToken,setUseSession } from "./TokenService";
+import type { LoginRequest, RegisterRequest, AuthResponse } from "../../pages/Auth/Auth.Type";
+import { getToken, setToken, removeToken, setUseSession } from "./TokenService";
 
 // Crear instancia de Axios
 const api = axios.create({
@@ -11,7 +11,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = getToken();
-    const publicPaths = ["/user/login"];
+    const publicPaths = ["/user/login", "/user/register"]; //rutas pública 
     const isPublic = publicPaths.some((path) => config.url?.includes(path));
 
     if (token && !isPublic) {
@@ -42,13 +42,21 @@ api.interceptors.response.use(
 
 // Función para iniciar sesión
 const login = async (data: LoginRequest, rememberMe: boolean) => {
-  setUseSession(!rememberMe); 
+  setUseSession(!rememberMe);
   const response = await api.post<AuthResponse>("/user/login", data);
   setToken(response.data.token);
+};
+
+// Función para registrarse
+const register = async (data: RegisterRequest): Promise<AuthResponse> => {
+  const response = await api.post<AuthResponse>("/user/register", data);
+  setToken(response.data.token); // login automático
+  return response.data;
 };
 
 // Exportación
 export default {
   api,
   login,
+  register,
 };

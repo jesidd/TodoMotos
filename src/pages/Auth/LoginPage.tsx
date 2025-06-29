@@ -7,6 +7,7 @@ import AuthLayout from '../../components/Auth/AuthLayout';
 import { Eye, EyeOff, X } from 'lucide-react';
 import googleIcon from '../../pages/Auth/assests/google.svg';
 import facebookIcon from '../../pages/Auth/assests/facebook.svg';
+import { AxiosError } from 'axios';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -29,9 +30,10 @@ const LoginPage: React.FC = () => {
   try {
     await authService.login(data, rememberMe);
     navigate('/home');
-  } catch (err: any) {
-    const status = err?.response?.status;
-    const message = err?.response?.data?.message;
+  } catch (err: unknown) {
+    const axiosErr = err as AxiosError<{ message?: string }>;
+    const status = axiosErr.response?.status;
+    const message = axiosErr.response?.data?.message;
 
     if (status === 401) {
       setError('Correo o contraseña incorrectos.');
@@ -39,6 +41,8 @@ const LoginPage: React.FC = () => {
       setError('Error del servidor. Intenta más tarde.');
     } else if (message) {
       setError(message);
+    } else if (axiosErr.message) {
+      setError(axiosErr.message);
     } else {
       setError('Error desconocido al iniciar sesión.');
     }
@@ -46,7 +50,6 @@ const LoginPage: React.FC = () => {
     setIsLoading(false);
   }
 };
-
 
 
   return (
