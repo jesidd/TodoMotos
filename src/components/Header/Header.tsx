@@ -83,7 +83,10 @@ const Header: React.FC = () => {
                   <SearchIcon />
                 </div>
 
-                <CircleUserRoundIcon />
+                <a href="/login">
+                  <CircleUserRoundIcon className="text-zinc-100 size-6 cursor-pointer hover:text-gray-400 transition" />
+                </a>
+
               </div>
             </div>
           )}
@@ -126,7 +129,10 @@ const Header: React.FC = () => {
                 <SearchIcon />
               </div>
 
-              <CircleUserRoundIcon className="text-zinc-100 size-6 cursor-pointer" />
+              <a href="/login">
+                <CircleUserRoundIcon className="text-zinc-100 size-6 cursor-pointer hover:text-gray-400 transition" />
+              </a>
+
             </div>
           </div>
         )}

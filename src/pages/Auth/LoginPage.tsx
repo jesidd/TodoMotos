@@ -5,8 +5,9 @@ import type { LoginRequest } from '../Auth/Auth.Type';
 import authService from '../../services/Auth/AuthService';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import { Eye, EyeOff, X } from 'lucide-react';
-import googleIcon from '../../pages/Auth/assests/google.svg';
-import facebookIcon from '../../pages/Auth/assests/facebook.svg';
+import googleIcon from '../../assets/google.svg';
+import { useGoogleLogin } from '@react-oauth/google';
+import FacebookLoginButton from '../../components/Auth/FacebookLoginButton';
 import { AxiosError } from 'axios';
 
 const LoginPage: React.FC = () => {
@@ -24,6 +25,27 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginRequest>({
     defaultValues: { correo: '', clave: '' },
   });
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const googleAccessToken = tokenResponse.access_token;
+
+        const auth = await authService.googleLogin(googleAccessToken);
+
+        localStorage.setItem("token", auth.token);
+        navigate("/home");
+      } catch (err) {
+        console.error("Error al iniciar sesión con Google:", err);
+        setError("Error al iniciar sesión con Google");
+      }
+    },
+    onError: (error) => {
+      console.error("Google Login Error:", error);
+      setError("Error al iniciar sesión con Google");
+    },
+  });
+
 
   const onSubmit = async (data: LoginRequest) => {
   setIsLoading(true);
@@ -162,26 +184,22 @@ const LoginPage: React.FC = () => {
           <div className="mt-3 grid grid-cols-2 gap-2">
             <button
               type="button"
+              onClick={() => googleLogin()} 
               className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-2 text-white/80 text-[13px] bg-white/10 hover:bg-white/20 transition-all duration-300"
             >
               <img src={googleIcon} alt="Google" className="w-4 h-4" />
               Google
             </button>
 
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 border border-white/20 rounded-lg py-1.5 text-white/80 text-[13px] bg-white/10 hover:bg-white/20 transition-all duration-300"
-            >
-              <img src={facebookIcon} alt="Facebook" className="w-4 h-4" />
-              Facebook
-            </button>
+            <FacebookLoginButton />
+
           </div>
         </div>
 
         {/* Registro */}
         <p className="text-white/60 text-[12px] md:text-[13.5px] lg:text-[13.7px] text-center mt-5">
           ¿No tienes cuenta?{' '}
-          <a href="/registro" className="text-orange-400 hover:underline f transition-all duration-300">
+          <a href="/register" className="text-orange-400 hover:underline f transition-all duration-300">
             Regístrate aquí
           </a>
         </p>

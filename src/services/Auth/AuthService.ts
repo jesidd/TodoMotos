@@ -7,11 +7,11 @@ const api = axios.create({
   baseURL: "https://fachamotos-1.onrender.com/api",
 });
 
-// Interceptor de solicitud para agregar el token si no es una ruta pública
+// Interceptor para agregar token a solicitudes
 api.interceptors.request.use(
   (config) => {
     const token = getToken();
-    const publicPaths = ["/user/login", "/user/register"]; //rutas pública 
+    const publicPaths = ["/user/login", "/user/register", "/auth/google", "/auth/facebook-login"];
     const isPublic = publicPaths.some((path) => config.url?.includes(path));
 
     if (token && !isPublic) {
@@ -23,7 +23,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor de respuesta para manejar errores de autenticación
+// Interceptor para manejar errores de autenticación
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -40,17 +40,35 @@ api.interceptors.response.use(
   }
 );
 
-// Función para iniciar sesión
+// Función para login normal
 const login = async (data: LoginRequest, rememberMe: boolean) => {
   setUseSession(!rememberMe);
   const response = await api.post<AuthResponse>("/user/login", data);
   setToken(response.data.token);
 };
 
-// Función para registrarse
+// Función para registro
 const register = async (data: RegisterRequest): Promise<AuthResponse> => {
   const response = await api.post<AuthResponse>("/user/register", data);
   setToken(response.data.token); // login automático
+  return response.data;
+};
+
+// Login con Google
+const googleLogin = async (googleAccessToken: string): Promise<AuthResponse> => {
+  const response = await api.post<AuthResponse>("/auth/google", {
+    token: googleAccessToken,
+  });
+  setToken(response.data.token);
+  return response.data;
+};
+
+// Login con Facebook
+const facebookLogin = async (facebookAccessToken: string): Promise<AuthResponse> => {
+  const response = await api.post<AuthResponse>("/auth/facebook-login", {
+    token: facebookAccessToken,
+  });
+  setToken(response.data.token);
   return response.data;
 };
 
@@ -59,4 +77,6 @@ export default {
   api,
   login,
   register,
+  googleLogin,
+  facebookLogin,
 };
