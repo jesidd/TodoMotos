@@ -7,6 +7,7 @@ import AuthLayout from '../../components/Auth/AuthLayout';
 import { Eye, EyeOff, X } from 'lucide-react';
 import googleIcon from '../../assets/google.svg';
 import { useGoogleLogin } from '@react-oauth/google';
+import type { TokenResponse } from '@react-oauth/google';
 import FacebookLoginButton from '../../components/Auth/FacebookLoginButton';
 import { AxiosError } from 'axios';
 
@@ -27,7 +28,7 @@ const LoginPage: React.FC = () => {
   });
 
   const googleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    onSuccess: async (tokenResponse: TokenResponse) => {
       try {
         const googleAccessToken = tokenResponse.access_token;
 
